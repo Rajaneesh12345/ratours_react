@@ -1,10 +1,14 @@
 import { useContext } from 'react'
 import StateContext from '../StateContext'
 import DispatchContext from '../DispatchContext'
+import { useNavigate } from 'react-router-dom'
 
 function HeaderLoggedIn() {
 	const appState = useContext(StateContext)
 	const appDispatch = useContext(DispatchContext)
+
+	const navigate = useNavigate()
+
 	const { user } = appState
 
 	return (
@@ -13,6 +17,7 @@ function HeaderLoggedIn() {
 				className="nav__el nav__el--logout"
 				onClick={() => {
 					appDispatch({ type: 'logout' })
+					navigate('/')
 				}}
 			>
 				Log out

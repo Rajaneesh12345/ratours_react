@@ -6,6 +6,7 @@ import Overview from './components/Overview'
 import Login from './components/Login'
 import Register from './components/Register'
 import Tour from './components/Tour'
+import Me from './components/Me'
 
 import StateContext from './StateContext'
 import DispatchContext from './DispatchContext'
@@ -14,11 +15,12 @@ function App() {
 	const initialState = {
 		loggedIn: Boolean(localStorage.getItem('ratoursToken')),
 		flashMessages: [],
-		token: '',
+		token: localStorage.getItem('ratoursToken'),
 		user: {
 			_id: localStorage.getItem('ratoursUserId'),
 			photo: localStorage.getItem('ratoursPhoto'),
-			name: localStorage.getItem('ratoursName')
+			name: localStorage.getItem('ratoursName'),
+			email: localStorage.getItem('ratoursEmail')
 		}
 	}
 
@@ -48,11 +50,13 @@ function App() {
 			localStorage.setItem('ratoursUserId', state.user._id)
 			localStorage.setItem('ratoursPhoto', state.user.photo)
 			localStorage.setItem('ratoursName', state.user.name)
+			localStorage.setItem('ratoursEmail', state.user.email)
 		} else {
 			localStorage.removeItem('ratoursToken')
 			localStorage.removeItem('ratoursUserId')
 			localStorage.removeItem('ratoursPhoto')
 			localStorage.removeItem('ratoursName')
+			localStorage.removeItem('ratoursEmail')
 		}
 	}, [state.loggedIn])
 
@@ -64,6 +68,7 @@ function App() {
 						<Route path="/login" element={<Login />} />
 						<Route path="/register" element={<Register />} />
 						<Route path="/tour/:id" element={<Tour />} />
+						<Route path="/me" element={<Me />} />
 						<Route path="/" element={<Overview />} />
 					</Routes>
 				</BrowserRouter>
