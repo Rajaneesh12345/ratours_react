@@ -32,9 +32,13 @@ function Card(props) {
 						<use xlinkHref="/img/icons.svg/#icon-calendar"></use>
 					</svg>
 					<span>
-						{tour.startDates[0].toLocaleString('en-us', {
+						{new Date(tour.startDates[0]).toLocaleString('en-us', {
+							year: 'numeric',
 							month: 'long',
-							year: 'numeric'
+							day: 'numeric',
+							hour: 'numeric',
+							minute: 'numeric',
+							second: 'numeric'
 						})}
 					</span>
 				</div>
@@ -62,7 +66,7 @@ function Card(props) {
 				</p>
 				<Link
 					className="btn btn--green btn--small"
-					to={`/tour/${tour.slug}`}
+					to={`/tour/${tour._id}`}
 				>
 					Details
 				</Link>
