@@ -20,7 +20,7 @@ function Tour(props) {
 			async function fetchData() {
 				try {
 					const response = await Axios.get(
-						`http://127.0.0.1:8000/api/v1/tours/${id}`
+						`https://ratoursbackendapi.onrender.com/api/v1/tours/${id}`
 					);
 					setTour(response.data.data.data);
 				} catch (e) {

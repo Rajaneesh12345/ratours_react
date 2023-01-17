@@ -14,7 +14,7 @@ function PasswordChange() {
 			async function fetchData() {
 				try {
 					const response = await Axios.post(
-						'http://127.0.0.1:8000/api/v1/users/updateMyPassword',
+						'https://ratoursbackendapi.onrender.com/api/v1/users/updateMyPassword',
 						{
 							passwordCurrent: cPassword,
 							password: nPassword,

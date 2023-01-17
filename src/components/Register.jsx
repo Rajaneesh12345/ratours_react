@@ -1,47 +1,47 @@
-import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import Axios from 'axios'
+import Axios from 'axios';
 
-import StateContext from '../StateContext'
-import DispatchContext from '../DispatchContext'
+import StateContext from '../StateContext';
+import DispatchContext from '../DispatchContext';
 
 function Register() {
-	const appState = useContext(StateContext)
-	const appDispatch = useContext(DispatchContext)
+	const appState = useContext(StateContext);
+	const appDispatch = useContext(DispatchContext);
 
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
-	const [name, setName] = useState('')
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [passwordConfirm, setPasswordConfirm] = useState('')
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [passwordConfirm, setPasswordConfirm] = useState('');
 
 	function handleSubmit(e) {
-		e.preventDefault()
+		e.preventDefault();
 		try {
-			const ourRequest = Axios.CancelToken.source()
+			const ourRequest = Axios.CancelToken.source();
 			async function fetchData() {
 				try {
 					const response = await Axios.post(
-						'http://127.0.0.1:8000/api/v1/users/signup',
+						'https://ratoursbackendapi.onrender.com/api/v1/users/signup',
 						{
 							name,
 							email,
 							password,
 							passwordConfirm
 						}
-					)
-					appDispatch({ type: 'login', data: response.data })
-					navigate('/')
+					);
+					appDispatch({ type: 'login', data: response.data });
+					navigate('/');
 				} catch (e) {
-					console.log(e)
+					console.log(e);
 				}
 			}
-			fetchData()
-			return () => ourRequest.cancel()
+			fetchData();
+			return () => ourRequest.cancel();
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 		}
 	}
 
@@ -114,7 +114,7 @@ function Register() {
 				</form>
 			</div>
 		</main>
-	)
+	);
 }
 
-export default Register
+export default Register;
