@@ -1,11 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react';
+
+import Axios from 'axios';
 
 function PasswordChange() {
+	const [cPassword, setcPassword] = useState('');
+	const [nPassword, setnPassword] = useState('');
+	const [cnPassword, setcnPassword] = useState('');
+
+	async function handleSubmit(e) {
+		e.preventDefault();
+		try {
+			const ourRequest = Axios.CancelToken.source();
+			async function fetchData() {
+				try {
+					const response = await Axios.post(
+						'http://127.0.0.1:8000/api/v1/users/updateMyPassword',
+						{
+							passwordCurrent: cPassword,
+							password: nPassword,
+							passwordConfirm: cnPassword
+						}
+					);
+					console.log(response.data);
+				} catch (e) {
+					console.log(e);
+				}
+			}
+			fetchData();
+			return () => ourRequest.cancel();
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
 	return (
 		<>
 			<div className="user-view__form-container">
 				<h2 className="heading-secondary ma-bt-md">Password change</h2>
-				<form className="form form-user-password">
+				<form onSubmit={handleSubmit} className="form form-user-password">
 					<div className="form__group">
 						<label className="form__label" htmlFor="password-current">
 							Current password
@@ -17,6 +49,8 @@ function PasswordChange() {
 							placeholder="••••••••"
 							required="required"
 							minLength="8"
+							value={cPassword}
+							onChange={e => setcPassword(e.target.value)}
 						/>
 					</div>
 					<div className="form__group">
@@ -30,6 +64,8 @@ function PasswordChange() {
 							placeholder="••••••••"
 							required="required"
 							minLength="8"
+							value={nPassword}
+							onChange={e => setnPassword(e.target.value)}
 						/>
 					</div>
 					<div className="form__group ma-bt-lg">
@@ -43,6 +79,8 @@ function PasswordChange() {
 							placeholder="••••••••"
 							required="required"
 							minLength="8"
+							value={cnPassword}
+							onChange={e => setcnPassword(e.target.value)}
 						/>
 					</div>
 					<div className="form__group right">
@@ -53,7 +91,7 @@ function PasswordChange() {
 				</form>
 			</div>
 		</>
-	)
+	);
 }
 
-export default PasswordChange
+export default PasswordChange;
